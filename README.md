@@ -2,7 +2,7 @@
 
 This repository contains a CBIR(content-based image retrieval) system. Here we use [Swin-transformer](https://github.com/microsoft/Swin-Transformer) to extract query image's feature, and retrieve similar ones from image database. Notably, our program achieves intelligent user interaction, including selecting an image by opening explorer dialog and cropping interested region by drafting mouse.
 
-![avatar](database/image.png)
+<img src="database/framework.png" width = 60%  alt="framework" div align=center />
 
 ## Structure
 
@@ -45,6 +45,14 @@ SWIN_CBIR/
 2. run `./script/generate_DB.sh` in linux machine to extract features of all images and package them into `DB.npz`.
 
 3. run `main.py`, open an image and select interested region, then program will find similar images in database automatically!
+
+## Results
+
+Here we show two image retrieval results. Two images in the first row are original image and cropped image respectively while the others are retrieval results (have been sorted by similarity).
+
+Note: all images are resize to square for visual requirement, so there would be distorted in some of the images.
+
+<img src="database/result1.png" width = 50%  alt="framework" div align=center ><img src="database/result2.png" width = 50%  alt="framework" div align=center />
 
 ## Acknowledgments
 
