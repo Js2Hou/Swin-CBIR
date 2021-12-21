@@ -18,12 +18,13 @@ def test(func):
 
 
 def get_pretrained_model(config):
-    
+
     model = build_model(config)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    print(f"==============> Resuming form {config.MODEL.RESUME}....................")
+    print(
+        f"==============> Resuming form {config.MODEL.RESUME}....................")
     if config.MODEL.RESUME.startswith('https'):
         checkpoint = torch.hub.load_state_dict_from_url(
             config.MODEL.RESUME, map_location='cpu', check_hash=True)
@@ -55,8 +56,8 @@ class ROISelector(object):
 
     ```python
     import matplotlib.pyplot as plt
-    
-    
+
+
     img_path = 'img.jpg'
     roisor = ROISelector(img_path)
     plt.show()
@@ -119,5 +120,16 @@ class ROISelector(object):
         self.rect.set_xy((x0, y0))
         self.rect.set_linestyle('dashed')
         self.ax.figure.canvas.draw()
-        self.cropped_img = self.img[int(y0) : int(y1), int(x0) : int(x1), :]
+        self.cropped_img = self.img[int(y0): int(y1), int(x0): int(x1), :]
         self.x0 = self.y0 = None
+
+
+def set_subplot_border(ax, color: str, linewidth: int):
+    ax.spines['bottom'].set_linewidth(linewidth)
+    ax.spines['bottom'].set_color(color)
+    ax.spines['right'].set_linewidth(linewidth)
+    ax.spines['right'].set_color(color)
+    ax.spines['left'].set_linewidth(linewidth)
+    ax.spines['left'].set_color(color)
+    ax.spines['top'].set_linewidth(linewidth)
+    ax.spines['top'].set_color(color)

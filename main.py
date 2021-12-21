@@ -9,7 +9,7 @@ from tkinter import filedialog
 
 from config import get_config
 from database import DB
-from utils import ROISelector, cos_similarity, get_pretrained_model
+from utils import ROISelector, cos_similarity, get_pretrained_model, set_subplot_border
 from models import build_model
 
 
@@ -96,6 +96,8 @@ def show_images(ori_img, cropped_img, retrived_imgs, similarity, col=None):
     n = len(retrived_imgs)
     col = int(col) if col else 5
     row = math.ceil(n / col) + 1
+    h, w, _ = ori_img.shape
+    h = w = min(h, w)
 
     # plot to show
     plt.figure()
@@ -103,19 +105,22 @@ def show_images(ori_img, cropped_img, retrived_imgs, similarity, col=None):
     for i in range(row):
         for j in range(col):
             idx = i * col + j
+            ax = plt.subplot(row, col, idx + 1)
 
             if idx == 0:
-                title_, img_ = 'ori img', ori_img
+                title_, img_ = 'raw img', ori_img
+                set_subplot_border(ax, 'green', 4)
             elif idx == 1:
                 title_, img_ = 'cropped img', cropped_img
+                set_subplot_border(ax, 'red', 4)
             elif idx < col:
                 continue
             else:
                 title_, img_ = f'{similarity[idx - col]:.4f}', retrived_imgs[idx - col]
-
-            plt.subplot(row, col, idx + 1)
-            plt.axis('off')
+                set_subplot_border(ax, 'blue', 4)
+            
             plt.title(title_)
+            img_ = cv.resize(img_, (h, w))
             plt.imshow(img_)
     plt.show()
 
