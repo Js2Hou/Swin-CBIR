@@ -22,7 +22,7 @@ done
 }
 
 src="/chen/dataset/mini-imagenet/train"
-dest="/chen/ahou/CBIR/database/data"
+dest="/chen/ahou/Swin-CBIR/database/data"
 num_class=20
 num_per_class=10
 

@@ -4,7 +4,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-sys.path.append(sys.path.append(os.getcwd()))
+sys.path.append(os.getcwd())
 from utils import test, cos_similarity, ROISelector
 
 
@@ -23,8 +23,21 @@ def test_ROISelector():
     path = 'database/sample.jpg'
     a = ROISelector(path)
     plt.show()
-    img = a.output_image()
-    print(f'img: {img.shape}')
+    img = a.img
+    img_cropped = a.cropped_img
+
+    print(f'img: {img.shape} img_cropped: {img_cropped.shape}')
+
+    plt.figure()
+    plt.subplot(1, 2, 1)
+    plt.axis('off')
+    plt.imshow(img)
+
+    plt.subplot(1, 2, 2)
+    plt.axis('off')
+    plt.imshow(img_cropped)
+    
+    plt.show()
 
 
 if __name__ == '__main__':

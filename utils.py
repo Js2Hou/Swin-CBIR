@@ -94,12 +94,12 @@ class ROISelector(object):
     def on_mouse_move(self, event):
         if not self.x0:
             return
+        x0, y0 = self.x0, self.y0
+        x1, y1 = event.xdata, event.ydata
 
-        self.x1 = event.xdata
-        self.y1 = event.ydata
-        self.rect.set_width(self.x1 - self.x0)
-        self.rect.set_height(self.y1 - self.y0)
-        self.rect.set_xy((self.x0, self.y0))
+        self.rect.set_width(x1 - x0)
+        self.rect.set_height(y1 - y0)
+        self.rect.set_xy((x0, y0))
         self.rect.set_linestyle('dashed')
         self.ax.figure.canvas.draw()
 
@@ -110,13 +110,14 @@ class ROISelector(object):
 
     def on_release(self, event):
         print('release')
-        self.x1 = event.xdata
-        self.y1 = event.ydata
-        self.rect.set_width(self.x1 - self.x0)
-        self.rect.set_height(self.y1 - self.y0)
-        self.rect.set_xy((self.x0, self.y0))
+        x0, y0 = self.x0, self.y0
+        x1, y1 = event.xdata, event.ydata
+        self.x1, self.y1 = x1, y1
+
+        self.rect.set_width(x1 - x0)
+        self.rect.set_height(y1 - y0)
+        self.rect.set_xy((x0, y0))
         self.rect.set_linestyle('dashed')
         self.ax.figure.canvas.draw()
-        self.cropped_img = self.img[int(self.x0):int(
-            self.x1), int(self.y0):int(self.y1), :]
+        self.cropped_img = self.img[int(y0) : int(y1), int(x0) : int(x1), :]
         self.x0 = self.y0 = None
