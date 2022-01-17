@@ -114,12 +114,15 @@ def show_images(ori_img, cropped_img, retrived_imgs, similarity, col=None):
                 title_, img_ = 'cropped img', cropped_img
                 set_subplot_border(ax, 'red', 4)
             elif idx < col:
+                plt.axis('off')
                 continue
             else:
                 title_, img_ = f'{similarity[idx - col]:.4f}', retrived_imgs[idx - col]
                 set_subplot_border(ax, 'blue', 4)
             
             plt.title(title_)
+            plt.xticks([])
+            plt.yticks([])
             img_ = cv.resize(img_, (h, w))
             plt.imshow(img_)
     plt.show()

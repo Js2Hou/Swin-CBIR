@@ -1,5 +1,5 @@
 ##ignore path in this file when git##
 ./database/data/*
-./checkpoints/*
+./checkpoints/*.
 ./database/DB.npz
 ./__pycache__/*
